@@ -1,23 +1,17 @@
-
-
-function security(email, pass) {
-    const regV = /@gmail.com || @mail.ru/g;
-    const result = email.match(regV);
-    if (pass.length <= 15){
-        const regE = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9!@#$%^&*a-zA-Z]{3}/g
-        const result1 = pass.match(regE);
-    if(result){
-        console.log(email);
-    } else {
-        console.log('sxala');
+class Cars {
+    constructor(brand, model, color, engine, power){
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
+        this.engine = engine;
+        this.power = power;
     }
-    if(result1){
-        console.log(pass);
-    }else{
-        console.log('sxala');
-        }
-    }
+    interior = [];
+    equipment = [];
+    fuel = [];
 }
-
-
-security('mik@gmail.com','Mik123$');
+const cars = new Cars('lada', 'niva', 'white', 1.7, 137);
+cars.interior.push('White');
+cars.equipment = ('Full');
+cars.fuel.push = ('50%');
+console.log(cars);
