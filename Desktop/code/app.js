@@ -1,7 +1,7 @@
 
 
 function security(email, pass) {
-    const regV = /@gmail.com/g;
+    const regV = /@gmail.com || @mail.ru/g;
     const result = email.match(regV);
     if (pass.length <= 15){
         const regE = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9!@#$%^&*a-zA-Z]{3}/g
