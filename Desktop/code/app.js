@@ -92,7 +92,7 @@ const t1 = new E1;
 
 
 const y1 = {
-    phone: 'phone number - (094)457330'
+    phone: 'phone number - (094)457330.'
 }
 function L1(){}
 L1.prototype = y1;
