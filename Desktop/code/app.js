@@ -1,23 +1,14 @@
-let string = ')';
-let count = 0;
+//1.
+const fs = require('fs'); 
+fs.writeFileSync('test', 'Mika, Basic It Centre');
 
-for( let i = 0; i < string.length; ++i){
-    if(string[i] == '(' ||string[i] ==  '{' ||string[i] ==  '['){
-        count++;
-    }
-    if(string[i] == ')' ||string[i] ==  '}' ||string[i] ==  ']'){
-        count--;
-    }
-    if(count < 0){ 
-        console.log(false);
-    }
-}
 
-if(count!= 0){
-    console.log(false);
-}
-else{
-    console.log(true);
-}
+//2.
 
-console.log(count);
+fs.writeFile('test1', 'Mikk', 'utf-8', (err)=>{
+    if(err){
+        throw err;
+    }   else {
+        console.log('Ok')
+    }
+})
