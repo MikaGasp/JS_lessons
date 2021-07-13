@@ -1,14 +1,23 @@
-//1.
-const fs = require('fs'); 
-fs.writeFileSync('test', 'Mika, Basic It Centre');
+const express = require('express');
 
+const app = express();
 
-//2.
+app.get('/student', (req,res) => {
+    res.send({
+        name: 'Mika'
+    })
+});
 
-fs.writeFile('test1', 'Mikk', 'utf-8', (err)=>{
-    if(err){
-        throw err;
-    }   else {
-        console.log('Ok')
-    }
-})
+app.get('/student/age', (req,res) => {
+    res.send({
+        age: 19
+    })
+;})
+
+app.get('/student/email', (req,res) => {
+    res.send({
+        email: 'mika@mail.ru'
+    })
+});
+
+app.listen(3000);
