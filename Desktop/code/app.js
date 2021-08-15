@@ -1,13 +1,12 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
-//const exphbs = require('express-handlebars');
 
 const PORT = 3000
 
 const app = express(); 
 
-
-function start(){  
+sfunction start(){  
     try{
          mongoose.connect('mongodb+srv://mika:mika123@cluster0.ffkp0.mongodb.net/todos', {
             useNewUrlParser: true,
@@ -21,7 +20,6 @@ function start(){
         console.log(e);
     }
 }
-
 start();
 
 const db = mongoose.connection;
@@ -31,7 +29,13 @@ db.once('open', () =>{
 
 const userSchema = new mongoose.Schema({
     name: String,
-    age: Number
+    age: Number,
+    email: {
+        required: true,
+        type: String,
+        minlength: 3,
+        maxlength: 50
+    }
 })
 
 const user1 = mongoose.model(
@@ -44,7 +48,8 @@ app.post('/users', (req, res) =>{
 
     const user = new user1({
         name: req.body.name,
-        age: req.body.age
+        age: req.body.age,
+        email: req.body.email
     });
 
     try{
@@ -55,8 +60,9 @@ app.post('/users', (req, res) =>{
             console.log(e);
         }
         
+        
 
-        res.send(user);
+        res.send('Success!');
 })
 
 
@@ -68,7 +74,34 @@ app.get('/users', (req, res) =>{
         res.send(users)});
 })
 
-app.delete('/users/:userId', (req, res) =>{
-    user1.findOneAndRemove({id:req.params.userId})
-    res.send('deleted');
+
+app.delete("/users/:userId",function(req,res){
+        user1.findByIdAndRemove({_id:req.params.userId},function(err){ 
+    user1.find({},function(err,doc){
+      res.send('deleted');
+     });
+    });
+   });
+
+
+app.get('/users/:searchBy', async (req, res) =>{
+    try{
+        const user = await user1.findById(req.params.searchBy)
+        if(!user)
+        return res.status(404).send()
+        res.status(200).send(user)
+    }catch(e){
+        res.status(500).send(e.message)
+    }
+})   
+
+app.put('/users/:searchByValue', async (req, res) => {
+    try{
+        const user = await user1.findByIdAndUpdate(req.params.searchByValue, req.body)
+        if(!user)
+        return res.status(404).send();
+        res.status(200).send(user)
+    }catch(e){
+        res.status(500).send(e.message)
+    }
 })
