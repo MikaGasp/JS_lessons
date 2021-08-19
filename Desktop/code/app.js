@@ -76,7 +76,7 @@ app.get('/users', (req, res) =>{
 
 
 app.delete("/users/:userId",function(req,res){
-        user1.findByIdAndRemove({_id:req.params.userId},function(err){ 
+        user1.findByIdAndRemove(req.params.userId,function(err){ 
     user1.find({},function(err,doc){
       res.send('deleted');
      });
